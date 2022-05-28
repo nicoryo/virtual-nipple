@@ -1,5 +1,5 @@
 class VirtualJoystick {
-    constructor (x, y = 100, id = 'canvas', size = 100, outercoler = "#86350b", innercoler =  "#c34806"){
+    constructor (x, y = 0.1, id = 'canvas', size = 100, outercoler = "#86350b", innercoler =  "#c34806"){
         this.id = id
         this.canvas = null;
         this.ctx = null;
@@ -69,17 +69,17 @@ class VirtualJoystick {
     }
     
     draw = (x, y = 0)  => {
-        let ballX = this.initX + this.INNER_CIRCLE_SIZE * x;
-        let ballY = this.initY + this.INNER_CIRCLE_SIZE * y;
+        let ballX = this.canvas.width * this.initX + this.INNER_CIRCLE_SIZE * x;
+        let ballY = this.canvas.height * this.initY + this.INNER_CIRCLE_SIZE * y;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.drawOuterCircle(this.initX, this.initY, this.OUTER_CIRCLE_SIZE);
+        this.drawOuterCircle(this.canvas.width * this.initX, this.canvas.height * this.initY, this.OUTER_CIRCLE_SIZE);
         this.drawBall(ballX, ballY, this.INNER_CIRCLE_SIZE);
     }
 }
 
-let LeftJoystick = new VirtualJoystick(100, 100, 'left', 100);
+let LeftJoystick = new VirtualJoystick(0.1, 0.9, 'left', 100);
 LeftJoystick.create();
-let RightJoystick = new VirtualJoystick(500, 100, 'right', 100);
+let RightJoystick = new VirtualJoystick(0.5, 0.9, 'right', 100);
 RightJoystick.create();
 
 let initLeftCoodinate = LeftJoystick.readCoordinate();
